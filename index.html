@@ -14,10 +14,10 @@
         padding: 40px;
         background-color: #0b0b0b;
         color: #ccff99;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       }
 
-      .light_green{
+      .light_green {
         color: #cdeaaf;
       }
       .card {
@@ -27,7 +27,7 @@
         box-shadow: 0 4px 12px rgba(204, 255, 153, 0.1);
         border: 1px solid #2a2a2a;
       }
-      .form-control{
+      .form-control {
         background-color: #2a2a2a;
         color: #ccff99;
       }
@@ -54,39 +54,84 @@
       canvas {
         background-color: #1a1a1a;
       }
+      /* Chrome, Safari, Edge, Opera */
+      input[type="number"]::-webkit-outer-spin-button,
+      input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Firefox */
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <h2 class="text-center mb-4">Assessment Calculator</h2>
-      
-      
-      <div class="row gx-4 justify-content-center align-items-center">
 
+      <div class="row gx-4 justify-content-center align-items-center">
         <div class="col-md-7">
           <div class="card p-4">
             <form id="gradeForm">
               <div class="mb-3">
                 <label for="ct1" class="form-label">CT-1 (out of 20)</label>
-                <input type="number" step="any" class="form-control" id="ct1" required />
+                <input
+                  type="number"
+                  step="any"
+                  class="form-control"
+                  id="ct1"
+                  required
+                />
               </div>
               <div class="mb-3">
                 <label for="ct2" class="form-label">CT-2 (out of 20)</label>
-                <input type="number" step="any" class="form-control" id="ct2" required />
+                <input
+                  type="number"
+                  step="any"
+                  class="form-control"
+                  id="ct2"
+                  required
+                />
               </div>
               <div class="mb-3">
                 <label for="mid" class="form-label">Mid Term (out of 30)</label>
-                <input type="number" step="any" class="form-control" id="mid" required />
+                <input
+                  type="number"
+                  step="any"
+                  class="form-control"
+                  id="mid"
+                  required
+                />
               </div>
               <div class="mb-3">
-                <label for="classPerform" class="form-label">Class Performance (out of 15)</label>
-                <input type="number" step="any" class="form-control" id="classPerform" required />
+                <label for="classPerform" class="form-label"
+                  >Class Performance (out of 15)</label
+                >
+                <input
+                  type="number"
+                  step="any"
+                  class="form-control"
+                  id="classPerform"
+                  required
+                />
               </div>
               <div class="mb-3">
-                <label for="attendance" class="form-label">Attendance (out of 15)</label>
-                <input type="number" step="any" class="form-control" id="attendance" required />
+                <label for="attendance" class="form-label"
+                  >Attendance (out of 15)</label
+                >
+                <input
+                  type="number"
+                  step="any"
+                  class="form-control"
+                  id="attendance"
+                  required
+                />
               </div>
-              <button type="submit" class="btn btn-primary w-100">Calculate</button>
+              <button type="submit" class="btn btn-primary w-100">
+                Calculate
+              </button>
             </form>
             <div id="result" class="mt-4"></div>
           </div>
@@ -99,8 +144,6 @@
             </div>
           </div>
         </div>
-
-
       </div>
       <p class="light_green text-end p-2">- Developed by Samarium</p>
     </div>
@@ -165,43 +208,53 @@
         },
       });
 
-      document.getElementById("gradeForm").addEventListener("submit", function (event) {
-        event.preventDefault();
+      document
+        .getElementById("gradeForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
 
-        const ct1 = parseFloat(document.getElementById("ct1").value);
-        const ct2 = parseFloat(document.getElementById("ct2").value);
-        const mid = parseFloat(document.getElementById("mid").value);
-        const classPerform = parseFloat(document.getElementById("classPerform").value);
-        const attendance = parseFloat(document.getElementById("attendance").value);
+          const ct1 = parseFloat(document.getElementById("ct1").value);
+          const ct2 = parseFloat(document.getElementById("ct2").value);
+          const mid = parseFloat(document.getElementById("mid").value);
+          const classPerform = parseFloat(
+            document.getElementById("classPerform").value
+          );
+          const attendance = parseFloat(
+            document.getElementById("attendance").value
+          );
 
-        const normCt1 = ct1 / 20;
-        const normCt2 = ct2 / 20;
-        const normMid = mid / 30;
-        const normCP = classPerform / 15;
-        const normAtt = attendance / 15;
+          const normCt1 = ct1 / 20;
+          const normCt2 = ct2 / 20;
+          const normMid = mid / 30;
+          const normCP = classPerform / 15;
+          const normAtt = attendance / 15;
 
-        radarChart.data.datasets[0].data = [
-          normCt1,
-          normCt2,
-          normMid,
-          normCP,
-          normAtt,
-        ];
-        radarChart.update();
+          radarChart.data.datasets[0].data = [
+            normCt1,
+            normCt2,
+            normMid,
+            normCP,
+            normAtt,
+          ];
+          radarChart.update();
 
-        const ctT = ((ct1 + ct2) * 60) / 40;
-        const incourse = ctT + mid + classPerform + attendance;
-        const gradeCount = 240 - incourse;
-        const finalExam = 180 - gradeCount;
+          const ctT = ((ct1 + ct2) * 60) / 40;
+          const incourse = ctT + mid + classPerform + attendance;
+          const gradeCount = 240 - incourse;
+          const finalExam = 180 - gradeCount;
 
-        document.getElementById("result").innerHTML = `
+          document.getElementById("result").innerHTML = `
           <div class="alert alert-info">
             <strong>In-course Marks:</strong> ${incourse.toFixed(2)} / 120<br>
-            <strong>Required for A+ (out of 240):</strong> ${gradeCount.toFixed(2)}<br>
-            <strong>Marks you can skip in Final (out of 120):</strong> ${finalExam.toFixed(2)}
+            <strong>Required for A+ (out of 240):</strong> ${gradeCount.toFixed(
+              2
+            )}<br>
+            <strong>Marks you can skip in Final (out of 120):</strong> ${finalExam.toFixed(
+              2
+            )}
           </div>
         `;
-      });
+        });
     </script>
   </body>
 </html>
